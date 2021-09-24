@@ -1,127 +1,150 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 import Card from "./Card/Card";
 
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import Switch from "./Switch/Switch";
-import LinearProgress from '@material-ui/core/LinearProgress';
+import LinearProgress from "@material-ui/core/LinearProgress";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    '& > *': {
+    "& > *": {
       margin: theme.spacing(1),
       width: 200,
     },
-    '& label.Mui-focused': {
-      color: '#8842d5',
+    "& label.Mui-focused": {
+      color: "#8842d5",
     },
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-      borderColor: "#8842d5"
-    }
+      borderColor: "#8842d5",
+    },
   },
   line: {
     marginTop: 35,
-    width: '70%',
+    width: "70%",
     marginLeft: "auto",
-    marginRight: "auto"
+    marginRight: "auto",
   },
 }));
 
 const ColorLinearProgress = withStyles({
   colorPrimary: {
-    backgroundColor: '#8842d5',
+    backgroundColor: "#8842d5",
   },
   barColorPrimary: {
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
 })(LinearProgress);
 
 const App = () => {
-
   const [data, setData] = useState();
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState(false);
-  const [input, setInput] = useState(
-    {
-      job: "",
-      city: "",
-    }
-  );
+  const [input, setInput] = useState({
+    job: "",
+    city: "",
+  });
 
   const onChangeHandler = (e) => {
-    e.preventDefault()
-    let name = e.target.name
-    let val = e.target.value
-    setInput(prevState => (
-      {
-        ...prevState,
-        [name]: val
-      }
-    ))
-  }
+    e.preventDefault();
+    let name = e.target.name;
+    let val = e.target.value;
+    setInput((prevState) => ({
+      ...prevState,
+      [name]: val,
+    }));
+  };
 
   const onSubmitHandler = async (e) => {
-    e.preventDefault()
-    e.target.reset()
-    document.getElementById("whatBox").blur()
-    document.getElementById("whereBox").blur()
-    setText({job: input.job, city: input.city})
-    setLoading(true)
-    const sort = document.querySelector('input[name="sort"]:checked').value
+    e.preventDefault();
+    e.target.reset();
+    document.getElementById("whatBox").blur();
+    document.getElementById("whereBox").blur();
+    setText({ job: input.job, city: input.city });
+    setLoading(true);
+    const sort = document.querySelector('input[name="sort"]:checked').value;
     const settings = {
-      method: 'POST',
+      method: "POST",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({job: input.job, city: input.city, sort: sort})
+      body: JSON.stringify({ job: input.job, city: input.city, sort: sort }),
     };
     try {
-      const response = await fetch("/search", settings)
+      const response = await fetch("/search", settings);
       if (!response.ok) throw await response.json();
-      const data = await response.json()
-      data && setLoading(false)
-      setData(data)
-      document.getElementById('cardId').scrollIntoView({
-        behavior: 'smooth'
+      const data = await response.json();
+      data && setLoading(false);
+      setData(data);
+      document.getElementById("cardId").scrollIntoView({
+        behavior: "smooth",
       });
     } catch (error) {
-      console.log(error)
-    } 
-  }
+      console.log(error);
+    }
+  };
 
-  const cardSites = data && Object.keys(data[0].items)
-  const displayCard = cardSites && cardSites.map((item, index) => (
-    <Card key={index}  name={item} data={data[0].items[item]} />
-    ))
+  const cardSites = data && Object.keys(data[0].items);
+  const displayCard =
+    cardSites &&
+    cardSites.map((item, index) => (
+      <Card key={index} name={item} data={data[0].items[item]} />
+    ));
 
   const classes = useStyles();
 
-  const btnStyle = {background: "#8842d5", color: "white", marginTop: "20px"}
-  const textColour = {color: "#8842d5"}
+  const btnStyle = { background: "#8842d5", color: "white", marginTop: "20px" };
+  const textColour = { color: "#8842d5" };
   const searchText = (
-    <h3 style={{marginTop: "25px"}} >Showing results for "
-      <span style={textColour} >{text.job}</span>" jobs in "<span style={textColour} >{text.city}</span>"
-    </h3>)
+    <h3 style={{ marginTop: "25px" }}>
+      Showing results for "<span style={textColour}>{text.job}</span>" jobs in "
+      <span style={textColour}>{text.city}</span>"
+    </h3>
+  );
 
   return (
     <div className="App">
-      <h1 className="header" onClick={() => window.location.reload()} >Jobs-4-U</h1>
-      <form className={classes.root} onSubmit={onSubmitHandler} noValidate autoComplete="off">
-        <TextField id="whatBox" name="job" label="What" variant="outlined" onChange={onChangeHandler} />
-        <TextField id="whereBox" name="city" label="Where" variant="outlined" onChange={onChangeHandler} />
-        <Button className="btn-style" variant="contained" type="submit" style={btnStyle} >Search</Button>
+      <h1 className="header" onClick={() => window.location.reload()}>
+        Jobs-4-U
+      </h1>
+      <form
+        className={classes.root}
+        onSubmit={onSubmitHandler}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField
+          id="whatBox"
+          name="job"
+          label="What"
+          variant="outlined"
+          onChange={onChangeHandler}
+        />
+        <TextField
+          id="whereBox"
+          name="city"
+          label="Where"
+          variant="outlined"
+          onChange={onChangeHandler}
+        />
+        <Button
+          className="btn-style"
+          variant="contained"
+          type="submit"
+          style={btnStyle}
+        >
+          Search
+        </Button>
       </form>
-      <Switch />      
+      <Switch />
       {loading && <ColorLinearProgress className={classes.line} />}
       {text && searchText}
-      <div id="cardId" >
-        {displayCard}
-      </div>
+      <div id="cardId">{displayCard}</div>
     </div>
   );
-}
+};
 
-export default App; 
+export default App;
