@@ -7,9 +7,9 @@ const scrapeFunc = async (job, city, sort) => {
     try {
       let url;
       if (sort === "relevance")
-        url = `https://www.indeed.co.uk/jobs?q=${job}&l=${city}`;
+        url = `https://uk.indeed.com/jobs?q=${job}&l=${city}`;
       if (sort === "date")
-        url = `https://www.indeed.co.uk/jobs?q=${job}&l=${city}&sort=date`;
+        url = `https://uk.indeed.com/jobs?q=${job}&l=${city}&sort=date`;
       const response = await request(url);
       const jobsarray = [];
       const $ = cheerio.load(response);
