@@ -1,5 +1,8 @@
-const request = require("request-promise");
 const cheerio = require("cheerio");
+const request = require("request-promise");
+const fixieRequest = request.defaults({
+  proxy: process.env.REACT_APP_FIXIE_URL,
+});
 
 const scrapeFunc = async (job, city, sort) => {
   // indeed scraping
@@ -10,7 +13,7 @@ const scrapeFunc = async (job, city, sort) => {
         url = `https://uk.indeed.com/jobs?q=${job}&l=${city}`;
       if (sort === "date")
         url = `https://uk.indeed.com/jobs?q=${job}&l=${city}&sort=date`;
-      const response = await request(url);
+      const response = await fixieRequest(url);
       const jobsarray = [];
       const $ = cheerio.load(response);
       $(".tapItem.fs-unmask.result").each((i, el) => {
