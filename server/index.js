@@ -20,12 +20,11 @@ app.post("/search", async (req, res) => {
       req.body.city,
       req.body.sort
     );
-    console.log(pageData);
     res.send([
       {
         items: {
-          Indeed: pageData[0].Indeed,
-          "CV Library": pageData[1]["CV Library"],
+          Adzuna: pageData[0].Adzuna,
+          CVLibrary: pageData[1].CVLibrary,
           Reed: pageData[2].Reed,
         },
       },

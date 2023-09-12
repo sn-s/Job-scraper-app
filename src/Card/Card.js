@@ -5,10 +5,11 @@ import "./Card.css";
 import Grow from "@material-ui/core/Grow";
 
 const Card = ({ name, data }) => {
+  console.log(name, data);
   const bgColour = [];
-  if (name === "Indeed") bgColour.push("#0000ff", "blue");
-  if (name === "CV Library") bgColour.push("#00cd00", "green");
-  if (name === "Reed") bgColour.push("#cd00cd", "purple");
+  if (name === "Adzuna") bgColour.push("#00cd00", "green");
+  if (name === "CVLibrary") bgColour.push("#0000ff", "blue");
+  if (name === "Reed") bgColour.push("#cf04a9", "pink");
 
   return (
     <Grow in style={{ transformOrigin: "0 0 0" }} {...{ timeout: 1000 }}>
