@@ -9,6 +9,7 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(cors());
 
+
 // serve build folder
 app.use(express.static(__dirname + "/../build"));
 
@@ -24,7 +25,7 @@ app.post("/search", async (req, res) => {
       {
         items: {
           Adzuna: pageData[0].Adzuna,
-          CVLibrary: pageData[1].CVLibrary,
+          Totaljobs: pageData[1].Totaljobs,
           Reed: pageData[2].Reed,
         },
       },

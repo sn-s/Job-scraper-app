@@ -8,7 +8,7 @@ const Card = ({ name, data }) => {
   console.log(name, data);
   const bgColour = [];
   if (name === "Adzuna") bgColour.push("#00cd00", "green");
-  if (name === "CVLibrary") bgColour.push("#0000ff", "blue");
+  if (name === "Totaljobs") bgColour.push("#0000ff", "blue");
   if (name === "Reed") bgColour.push("#cf04a9", "pink");
 
   return (
