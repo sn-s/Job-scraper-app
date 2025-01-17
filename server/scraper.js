@@ -1,20 +1,20 @@
-require('dotenv').config();
+// require('dotenv').config();
 const cheerio = require("cheerio");
 const axios = require("axios");
-const urlModule = require('url');
+// const urlModule = require('url');
 
 // Fixie proxy
-const fixieUrl = urlModule.parse(process.env.FIXIE_URL);
-const fixieAuth = fixieUrl.auth.split(':');
+// const fixieUrl = urlModule.parse(process.env.FIXIE_URL);
+// const fixieAuth = fixieUrl.auth.split(':');
 
-const proxy = {
-  proxy: {
-    protocol: 'http',
-    host: fixieUrl.hostname,
-    port: fixieUrl.port,
-    auth: {username: fixieAuth[0], password: fixieAuth[1]}
-  }
-}
+// const proxy = {
+//   proxy: {
+//     protocol: 'http',
+//     host: fixieUrl.hostname,
+//     port: fixieUrl.port,
+//     auth: {username: fixieAuth[0], password: fixieAuth[1]}
+//   }
+// }
 
 const headers = {
   'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.81 Safari/537.36',
